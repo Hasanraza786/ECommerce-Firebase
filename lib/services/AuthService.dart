@@ -18,14 +18,14 @@ class AuthService {
 
   String get imageUrl => _imageUrl;
 
-  Future signUpWithEmail({
-    @required String email,
-    @required String password,
-    @required name,
-    @required gender,
-    @required phoneNumber,
-    @required image,
-  }) async {
+  Future signUpWithEmail(
+      {@required String email,
+      @required String password,
+      @required name,
+      @required gender,
+      @required phoneNumber,
+      @required image,
+      @required adress}) async {
     try {
       var authResult = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -36,7 +36,8 @@ class AuthService {
           name: name,
           gender: gender,
           phoneNumber: phoneNumber,
-          image: image);
+          image: image,
+          adress: adress);
 
       await _storageService.createUser(_currentUser);
 
@@ -54,7 +55,7 @@ class AuthService {
       var authResult = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
 
-      await _populateCurrentUser(authResult.user);
+      await populateCurrentUser(authResult.user);
       return authResult.user != null;
     } catch (e) {
       return e.toString();
@@ -64,13 +65,13 @@ class AuthService {
   Future isUserLoggedIn() async {
     User user = _auth.currentUser;
     if (user != null) {
-      await _populateCurrentUser(user);
+      await populateCurrentUser(user);
     }
     print([user != null]);
     return user != null;
   }
 
-  Future _populateCurrentUser(User user) async {
+  Future populateCurrentUser(User user) async {
     try {
       if (user != null) {
         _currentUser = await _storageService.getUser(user.uid);

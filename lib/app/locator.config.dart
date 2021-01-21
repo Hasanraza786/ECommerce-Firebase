@@ -5,6 +5,7 @@
 // **************************************************************************
 
 import 'package:eCommerce/services/AuthService.dart';
+
 import 'package:eCommerce/services/storageService.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
@@ -27,6 +28,7 @@ GetIt $initGetIt(
   gh.lazySingleton<ThemeService>(() => services.themeService);
   gh.lazySingleton<AuthService>(() => services.authService);
   gh.lazySingleton<StorageService>(() => services.storageService);
+
   return get;
 }
 

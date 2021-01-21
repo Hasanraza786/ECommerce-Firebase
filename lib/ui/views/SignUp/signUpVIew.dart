@@ -85,6 +85,12 @@ class SignUpView extends StatelessWidget {
                           hintText: "Phone Number",
                           controller: model.numberController,
                           textInputType: TextInputType.number,
+                          textInputAction: TextInputAction.next,
+                        ),
+                        CustomTextField(
+                          hintText: "Adress",
+                          controller: model.adressController,
+                          textInputType: TextInputType.text,
                           textInputAction: TextInputAction.done,
                         ),
                         BusyButton(

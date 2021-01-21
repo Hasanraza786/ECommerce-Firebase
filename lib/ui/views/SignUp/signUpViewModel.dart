@@ -13,6 +13,7 @@ class SignUpViewModel extends BaseViewModel {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController numberController = TextEditingController();
+  final TextEditingController adressController = TextEditingController();
 
   bool obscureText = true;
 
@@ -39,7 +40,8 @@ class SignUpViewModel extends BaseViewModel {
     if (userNameController.text.isEmpty &&
         emailController.text.isEmpty &&
         passwordController.text.isEmpty &&
-        numberController.text.isEmpty) {
+        numberController.text.isEmpty &&
+        adressController.text.isEmpty) {
       scaffoldKey.currentState
           .showSnackBar(SnackBar(content: Text("All Field Are Empty")));
     } else if (userNameController.text.length < 6) {
@@ -61,6 +63,9 @@ class SignUpViewModel extends BaseViewModel {
         numberController.text.length > 11) {
       scaffoldKey.currentState
           .showSnackBar(SnackBar(content: Text("Phone Number Must be 11")));
+    } else if (adressController.text.isEmpty) {
+      scaffoldKey.currentState
+          .showSnackBar(SnackBar(content: Text("Adress must not be empty")));
     } else {
       signUp();
     }
@@ -78,7 +83,8 @@ class SignUpViewModel extends BaseViewModel {
         name: userNameController.text,
         gender: isMale == true ? "Male" : "Female",
         phoneNumber: numberController.text,
-        image: _authService.imageUrl != null ? _authService.imageUrl : "");
+        image: _authService.imageUrl != null ? _authService.imageUrl : "",
+        adress: adressController.text);
     if (result is bool) {
       if (result) {
         setBusy(false);

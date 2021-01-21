@@ -3,6 +3,7 @@ import 'package:eCommerce/ui/views/Home/homeViewModel.dart';
 import 'package:eCommerce/ui/widgets/CustomAppBar.dart';
 import 'package:eCommerce/ui/widgets/Drawer/drawerView.dart';
 import 'package:eCommerce/ui/widgets/NotificationButton.dart';
+import 'package:eCommerce/ui/widgets/Search/searchCategory.dart';
 import 'package:eCommerce/ui/widgets/SingleProduct.dart';
 import 'package:eCommerce/ui/widgets/categoryProduct.dart';
 import 'package:flutter/material.dart';
@@ -27,12 +28,6 @@ class HomeView extends StatelessWidget {
                 onPressedLeading: () =>
                     model.scaffoldKey.currentState.openDrawer(),
                 actions: [
-                  IconButton(
-                      icon: Icon(
-                        Icons.search,
-                        color: Colors.black,
-                      ),
-                      onPressed: () {}),
                   NotificationButton(),
                 ],
               ),
@@ -81,21 +76,24 @@ class HomeView extends StatelessWidget {
                                         CategoryProduct(
                                             onTap: () => model.goToProductList({
                                                   "name": "Dress",
-                                                  "list": model.dressData
+                                                  "list": model.dressData,
+                                                  "isCategory": true,
                                                 }),
                                             color: AppColors.dressColor,
                                             image: model.dressIcon),
                                         CategoryProduct(
                                             onTap: () => model.goToProductList({
                                                   "name": "Shirt",
-                                                  "list": model.shirtData
+                                                  "list": model.shirtData,
+                                                  "isCategory": true,
                                                 }),
                                             color: AppColors.shirtColor,
                                             image: model.shirtIcon),
                                         CategoryProduct(
                                           onTap: () => model.goToProductList({
                                             "name": "Shoe",
-                                            "list": model.shoeData
+                                            "list": model.shoeData,
+                                            "isCategory": true,
                                           }),
                                           color: AppColors.shoeColor,
                                           image: model.shoeIcon,
@@ -103,14 +101,16 @@ class HomeView extends StatelessWidget {
                                         CategoryProduct(
                                             onTap: () => model.goToProductList({
                                                   "name": "Pant",
-                                                  "list": model.pantData
+                                                  "list": model.pantData,
+                                                  "isCategory": true,
                                                 }),
                                             color: AppColors.pantColor,
                                             image: model.pantIcon),
                                         CategoryProduct(
                                             onTap: () => model.goToProductList({
                                                   "name": "Tie",
-                                                  "list": model.tieData
+                                                  "list": model.tieData,
+                                                  "isCategory": true,
                                                 }),
                                             color: AppColors.tieColor,
                                             image: model.tieIcon)
@@ -131,7 +131,8 @@ class HomeView extends StatelessWidget {
                                       GestureDetector(
                                         onTap: () => model.goToProductList({
                                           "name": "Featured",
-                                          "list": model.featureProducts
+                                          "list": model.featureProducts,
+                                          "isCategory": false,
                                         }),
                                         child: Text("View more",
                                             style: Theme.of(context)
@@ -177,7 +178,8 @@ class HomeView extends StatelessWidget {
                                         GestureDetector(
                                           onTap: () => model.goToProductList({
                                             "name": "New Archives",
-                                            "list": model.archiveProducts
+                                            "list": model.archiveProducts,
+                                            "isCategory": false,
                                           }),
                                           child: Text("View more",
                                               style: Theme.of(context)

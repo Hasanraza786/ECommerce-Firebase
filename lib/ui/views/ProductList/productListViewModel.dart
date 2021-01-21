@@ -12,6 +12,11 @@ class ProductListViewModel extends BaseViewModel {
     _navigationService.popRepeated(1);
   }
 
+  Future getList(list) async {
+    _storageService.getSearchCategory(list: list);
+    notifyListeners();
+  }
+
 // List featureProducts
 
   Future getFeature() async {
@@ -26,7 +31,8 @@ class ProductListViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void getProducts() async {
+  void getProducts(list) async {
+    await getList(list);
     await getFeature();
     await getArchive();
     notifyListeners();

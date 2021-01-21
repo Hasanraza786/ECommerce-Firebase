@@ -5,6 +5,7 @@ class UserModel {
   String gender;
   String phoneNumber;
   String image;
+  String adress;
 
   UserModel(
       {this.id,
@@ -12,7 +13,8 @@ class UserModel {
       this.email,
       this.gender,
       this.phoneNumber,
-      this.image});
+      this.image,
+      this.adress});
 
   UserModel.fromData(Map<String, dynamic> data)
       : id = data['id'],
@@ -20,7 +22,8 @@ class UserModel {
         email = data['email'],
         gender = data["gender"],
         phoneNumber = data["phoneNumber"],
-        image = data["image"];
+        image = data["image"],
+        adress = data["adress"];
 
   static UserModel fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
@@ -31,7 +34,8 @@ class UserModel {
         email: map['email'],
         gender: map['gender'],
         phoneNumber: map['phoneNumber'],
-        image: map['image']);
+        image: map['image'],
+        adress: map["adress"]);
   }
 
   Map<String, dynamic> toJson() {
@@ -42,6 +46,7 @@ class UserModel {
       'gender': gender,
       'phoneNumber': phoneNumber,
       'image': image,
+      'adress': adress
     };
   }
 }

@@ -1,5 +1,6 @@
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:eCommerce/app/locator.dart';
+import 'package:eCommerce/app/router.gr.dart';
 import 'package:eCommerce/models/userModel.dart';
 import 'package:eCommerce/services/AuthService.dart';
 import 'package:eCommerce/services/storageService.dart';
@@ -16,11 +17,13 @@ class ProfileViewModel extends BaseViewModel {
   UserModel get user => _authService.currentUser;
   TextEditingController userNameController;
   TextEditingController numberController;
+  TextEditingController adressController;
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   void validation() async {
     if (userNameController.text.isEmpty &&
         numberController.text.isEmpty &&
+        adressController.text.isEmpty &&
         imageFile != null) {
       scaffoldKey.currentState
           .showSnackBar(SnackBar(content: Text("All Field Are Empty")));
@@ -34,6 +37,9 @@ class ProfileViewModel extends BaseViewModel {
         numberController.text.length > 11) {
       scaffoldKey.currentState
           .showSnackBar(SnackBar(content: Text("Phone Number Must be 11")));
+    } else if (adressController.text.isEmpty) {
+      scaffoldKey.currentState
+          .showSnackBar(SnackBar(content: Text("Adress must not be empty")));
     } else {
       await imageUpload();
       await updateUser();
@@ -52,6 +58,8 @@ class ProfileViewModel extends BaseViewModel {
   void setValue() {
     userNameController = TextEditingController(text: user.name);
     numberController = TextEditingController(text: user.phoneNumber);
+    adressController = TextEditingController(text: user.adress);
+
     if (user.gender == "Male") {
       isMale = true;
     } else {
@@ -68,7 +76,7 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   void goBack() {
-    _navigationService.popRepeated(1);
+    _navigationService.pushNamedAndRemoveUntil(Routes.homeView);
   }
 
   File imageFile;
@@ -139,6 +147,7 @@ class ProfileViewModel extends BaseViewModel {
 
   Future imageUpload() async {
     await _authService.uploadImage(image: imageFile);
+    notifyListeners();
   }
 
   Future updateUser() async {
@@ -149,8 +158,8 @@ class ProfileViewModel extends BaseViewModel {
         phoneNumber: numberController.text,
         email: user.email,
         uid: user.id,
-        image: _authService.imageUrl != null ? _authService.imageUrl : "");
+        image: _authService.imageUrl != null ? _authService.imageUrl : "",
+        adress: adressController.text);
+    notifyListeners();
   }
-
-  notifyListeners();
 }

@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:eCommerce/ui/views/ProductList/productListViewModel.dart';
+import 'package:eCommerce/ui/widgets/Search/searchCategory.dart';
+import 'package:eCommerce/ui/widgets/Search/searchProduct.dart';
 import 'package:eCommerce/ui/widgets/SingleProduct.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -10,10 +12,10 @@ class ProductListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Map data = productList.arguments;
     return ViewModelBuilder<ProductListViewModel>.reactive(
-        onModelReady: (model) => model.getProducts(),
+        onModelReady: (model) => model.getProducts(data["list"]),
         builder: (context, model, child) {
-          Map data = productList.arguments;
           return Scaffold(
             appBar: AppBar(
               elevation: 0,
@@ -25,12 +27,25 @@ class ProductListView extends StatelessWidget {
                   ),
                   onPressed: () => model.backToHome()),
               actions: [
-                IconButton(
-                    icon: Icon(
-                      Icons.search,
-                      color: Colors.black,
-                    ),
-                    onPressed: () {}),
+                data["isCategory"] == true
+                    ? IconButton(
+                        icon: Icon(
+                          Icons.search,
+                          color: Colors.black,
+                        ),
+                        onPressed: () {
+                          showSearch(
+                              context: context, delegate: SearchCategory());
+                        })
+                    : IconButton(
+                        icon: Icon(
+                          Icons.search,
+                          color: Colors.black,
+                        ),
+                        onPressed: () {
+                          showSearch(
+                              context: context, delegate: SearchProduct());
+                        }),
                 IconButton(
                     icon: Icon(
                       Icons.notifications_none,

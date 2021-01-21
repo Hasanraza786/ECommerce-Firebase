@@ -20,7 +20,7 @@ Widget singleContainer({context, startText, endText}) {
           ),
           Text(
             endText ?? "",
-            style: Theme.of(context).textTheme.headline2,
+            style: Theme.of(context).textTheme.subtitle2,
           )
         ])),
   );

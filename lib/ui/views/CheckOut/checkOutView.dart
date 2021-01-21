@@ -11,21 +11,34 @@ class CheckOutView extends StatelessWidget {
     return ViewModelBuilder<CheckOutViewModel>.reactive(
         onModelReady: (model) => model.setCheckOut(),
         builder: (context, model, child) {
-          double subTotal;
+          double subTotal = 0;
           double discount = 3;
           double discountRupees;
           double shipping = 60;
           double totalRupees;
+          // String name ;
+          // String price ;
+          // String quantity ;
+
           for (var i = 0; i < model.checkoutproducts.length; i++) {
-            subTotal = double.parse(model.checkoutproducts[i]["price"]) *
+            subTotal += double.parse(model.checkoutproducts[i]["price"]) *
                 model.checkoutproducts[i]["quantity"];
             discountRupees = discount / 100 * subTotal;
-            totalRupees = subTotal + shipping - discountRupees;
-            print(["Asdasda", subTotal, discountRupees, totalRupees]);
+            totalRupees = subTotal + shipping;
+
+            totalRupees = totalRupees - discountRupees;
           }
           return Scaffold(
+              key: model.scaffoldKey,
               bottomNavigationBar: bottomNavigation(
-                  context: context, onPressed: () {}, text: "Buy"),
+                  context: context,
+                  onPressed: () => model.checkoutproducts.isNotEmpty
+                      ? model.addOrder(
+                          products: model.checkoutproducts,
+                          totalPrice: totalRupees.toStringAsFixed(2),
+                        )
+                      : model.showSnackBar(),
+                  text: "Buy"),
               appBar: customAppBar(
                   context: context,
                   title: "CheckOut Page",
@@ -72,16 +85,27 @@ class CheckOutView extends StatelessWidget {
                                                 context: context,
                                                 startName: "Your price",
                                                 endName: "\$ 0"),
-                                        bottomDetail(
-                                            context: context,
-                                            startName: "Discount",
-                                            endName: " \$ " +
-                                                discount.toStringAsFixed(2)),
-                                        bottomDetail(
-                                            context: context,
-                                            startName: "Shipping",
-                                            endName: "\$ " +
-                                                shipping.toStringAsFixed(2)),
+                                        model.checkoutproducts != null
+                                            ? bottomDetail(
+                                                context: context,
+                                                startName: "Discount",
+                                                endName: " \$ " +
+                                                    discount.toStringAsFixed(2))
+                                            : bottomDetail(
+                                                context: context,
+                                                startName: "Discount",
+                                                endName: " \$ 0.0"),
+                                        model.checkoutproducts != null
+                                            ? bottomDetail(
+                                                context: context,
+                                                startName: "Shipping",
+                                                endName: "\$ 0.0")
+                                            : bottomDetail(
+                                                context: context,
+                                                startName: "Shipping",
+                                                endName: "\$ " +
+                                                    shipping
+                                                        .toStringAsFixed(2)),
                                         model.checkoutproducts != null &&
                                                 totalRupees != null
                                             ? bottomDetail(

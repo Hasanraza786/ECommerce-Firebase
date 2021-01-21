@@ -2,6 +2,7 @@ import 'package:eCommerce/ui/theme/AppColors.dart';
 import 'package:eCommerce/ui/widgets/NotificationButton.dart';
 import 'package:eCommerce/ui/widgets/ProfileScreenWidgets.dart';
 import 'package:eCommerce/ui/widgets/busyButton.dart';
+import 'package:eCommerce/ui/widgets/textField.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:eCommerce/ui/widgets/CustomAppBar.dart';
@@ -13,11 +14,7 @@ class ProfileView extends StatelessWidget {
     return ViewModelBuilder<ProfileViewModel>.reactive(
         onModelReady: (model) => model.setValue(),
         builder: (context, model, child) {
-          print([
-            "userrrrrNamee",
-            model.user.image,
-          ]);
-
+          print(["imaaggg", model.user.image]);
           return Scaffold(
             key: model.scaffoldKey,
             resizeToAvoidBottomInset: false,
@@ -62,12 +59,14 @@ class ProfileView extends StatelessWidget {
                                 children: [
                                   CircleAvatar(
                                     maxRadius: 65,
-                                    backgroundImage: model.user.image == ""
-                                        ? AssetImage(
-                                            "assets/images/profile.jpg")
-                                        : NetworkImage(
-                                            model.user.image,
-                                          ),
+                                    backgroundImage: model.imageFile != null
+                                        ? FileImage(model.imageFile)
+                                        : model.user.image != ""
+                                            ? NetworkImage(
+                                                model.user.image,
+                                              )
+                                            : AssetImage(
+                                                "assets/images/profile.jpg"),
                                   ),
                                 ],
                               )),
@@ -100,10 +99,9 @@ class ProfileView extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  singleTextField(
+                                  CustomTextField(
                                       controller: model.userNameController,
-                                      context: context,
-                                      name: model.userNameController.text),
+                                      hintText: model.userNameController.text),
                                   singleContainer(
                                       context: context,
                                       startText: "Email",
@@ -117,11 +115,14 @@ class ProfileView extends StatelessWidget {
                                             ? "Male"
                                             : "Female"),
                                   ),
-                                  singleTextField(
+                                  CustomTextField(
                                       controller: model.numberController,
-                                      context: context,
-                                      name: model.numberController.text,
-                                      inputType: TextInputType.number)
+                                      hintText: model.numberController.text,
+                                      textInputType: TextInputType.number),
+                                  CustomTextField(
+                                      controller: model.adressController,
+                                      hintText: model.numberController.text,
+                                      textInputType: TextInputType.text)
                                 ],
                               )
                             : Column(
@@ -143,7 +144,11 @@ class ProfileView extends StatelessWidget {
                                   singleContainer(
                                       context: context,
                                       startText: "Phone Number",
-                                      endText: model.user.phoneNumber)
+                                      endText: model.user.phoneNumber),
+                                  singleContainer(
+                                      context: context,
+                                      startText: "Adress",
+                                      endText: model.user.adress)
                                 ],
                               ),
                       ),

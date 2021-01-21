@@ -12,8 +12,11 @@ class DrawerView extends StatelessWidget {
                   child: ListView(children: [
                     UserAccountsDrawerHeader(
                         currentAccountPicture: CircleAvatar(
-                          backgroundImage:
-                              AssetImage("assets/images/profile.jpg"),
+                          backgroundImage: model.user.image == ""
+                              ? AssetImage("assets/images/profile.jpg")
+                              : NetworkImage(
+                                  model.user.image,
+                                ),
                         ),
                         decoration: BoxDecoration(color: Color(0xfff2f2f2)),
                         accountName: Text(
