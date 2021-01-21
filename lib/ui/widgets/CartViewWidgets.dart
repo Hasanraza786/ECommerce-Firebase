@@ -2,10 +2,12 @@ import 'package:eCommerce/ui/theme/AppColors.dart';
 import 'package:flutter/material.dart';
 
 Widget singleCartProduct(
-  context,
-  model,
-  data,
-) {
+    {context,
+    Function onPressed,
+    Map data,
+    quantity,
+    Function onTapRemove,
+    Function onTapAdd}) {
   return Container(
       height: 140,
       width: double.infinity,
@@ -27,9 +29,25 @@ Widget singleCartProduct(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      data["name"],
-                      style: Theme.of(context).textTheme.headline3,
+                    Container(
+                      height: 15,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            data["name"],
+                            style: Theme.of(context).textTheme.headline3,
+                          ),
+                          IconButton(
+                              icon: Icon(
+                                Icons.close,
+                                color: AppColors.priceColor,
+                                size: 20,
+                              ),
+                              onPressed: onPressed)
+                        ],
+                      ),
                     ),
                     Text(
                       "Clothes",
@@ -51,15 +69,13 @@ Widget singleCartProduct(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           GestureDetector(
-                              child: Icon(Icons.remove),
-                              onTap: () => model.removeQuantity()),
+                              child: Icon(Icons.remove), onTap: onTapAdd),
                           Text(
-                            model.count.toString(),
+                            quantity,
                             style: Theme.of(context).textTheme.headline3,
                           ),
                           GestureDetector(
-                              child: Icon(Icons.add),
-                              onTap: () => model.addQuantity())
+                              child: Icon(Icons.add), onTap: onTapRemove)
                         ],
                       ),
                     ),
@@ -118,9 +134,25 @@ Widget singleCheckOutProduct(context, model, data) {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      data["name"],
-                      style: Theme.of(context).textTheme.headline3,
+                    Container(
+                      height: 15,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            data["name"],
+                            style: Theme.of(context).textTheme.headline3,
+                          ),
+                          IconButton(
+                              icon: Icon(
+                                Icons.close,
+                                color: AppColors.priceColor,
+                                size: 20,
+                              ),
+                              onPressed: () => model.deleteCart())
+                        ],
+                      ),
                     ),
                     Text(
                       "Clothes",

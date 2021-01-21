@@ -35,7 +35,7 @@ class DetailView extends StatelessWidget {
                       colorContainer(context, model),
                       quantityContainer(context, model),
                       button(
-                          onPressed: () => model.goToCartView({
+                          onPressed: () => model.addCart({
                                 "image": data["image"],
                                 "name": data["name"],
                                 "price": data["price"],

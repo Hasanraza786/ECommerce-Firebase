@@ -77,7 +77,8 @@ class SignUpViewModel extends BaseViewModel {
         password: passwordController.text,
         name: userNameController.text,
         gender: isMale == true ? "Male" : "Female",
-        phoneNumber: numberController.text);
+        phoneNumber: numberController.text,
+        image: _authService.imageUrl != null ? _authService.imageUrl : "");
     if (result is bool) {
       if (result) {
         setBusy(false);

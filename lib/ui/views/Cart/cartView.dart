@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:eCommerce/ui/views/Cart/cartViewModel.dart';
 import 'package:eCommerce/ui/widgets/CartViewWidgets.dart';
 import 'package:eCommerce/ui/widgets/CustomAppBar.dart';
@@ -7,24 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class CartView extends StatelessWidget {
-  final RouteData cartDetail;
-  CartView({this.cartDetail});
   @override
   Widget build(BuildContext context) {
-    Map data = cartDetail.arguments;
-
     return ViewModelBuilder<CartViewModel>.reactive(
-        onModelReady: (model) => model.setCount(data["quantity"]),
+        onModelReady: (model) => model.setCount(),
         builder: (context, model, child) {
           return Scaffold(
               bottomNavigationBar: bottomNavigation(
                   context: context,
-                  onPressed: () => model.goToCheckOut({
-                        "image": data["image"],
-                        "name": data["name"],
-                        "price": data["price"],
-                        "quantity": model.count
-                      }),
+                  onPressed: () => model.goToCheckOut({}),
                   text: "Continous"),
               appBar: customAppBar(
                   context: context,
@@ -32,18 +22,17 @@ class CartView extends StatelessWidget {
                   onPressedLeading: () => model.goBack(),
                   actions: [NotificationButton()]),
               body: ListView.builder(
-                itemCount: 1,
+                itemCount: model.cartproducts.length,
                 itemBuilder: (context, index) {
                   return singleCartProduct(
-                    context,
-                    model,
-                    {
-                      "image": data["image"],
-                      "name": data["name"],
-                      "price": data["price"],
-                      "quantity": model.count
-                    },
-                  );
+                      context: context,
+                      data: model.cartproducts[index],
+                      quantity:
+                          model.cartproducts[index]["quantity"].toString(),
+                      onTapAdd: () => model.addQuantity(
+                          value: model.cartproducts[index]["quantity"]),
+                      onTapRemove: () => model.removeQuantity(
+                          value: model.cartproducts[index]["quantity"]));
                 },
               ));
         },

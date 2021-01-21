@@ -7,32 +7,26 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class CheckOutView extends StatelessWidget {
-  final RouteData checkOutDetail;
-  CheckOutView({this.checkOutDetail});
   @override
   Widget build(BuildContext context) {
-    Map data = checkOutDetail.arguments;
-
     return ViewModelBuilder<CheckOutViewModel>.reactive(
         builder: (context, model, child) {
-          double price = double.parse(data["price"]);
+          // double price = double.parse(data["price"]);
           double discount = 3;
           double discountRupees;
           double shipping = 60;
           double totalRupees;
 
-          double subtotal = price * data["quantity"];
-          discountRupees = discount / 100 * subtotal;
-          totalRupees = subtotal + shipping - discountRupees;
+          // double subtotal = price * data["quantity"];
+          // discountRupees = discount / 100 * subtotal;
+          // totalRupees = subtotal + shipping - discountRupees;
           return Scaffold(
               bottomNavigationBar: bottomNavigation(
-                  context: context,
-                  onPressed: () => model.goHome(),
-                  text: "Buy"),
+                  context: context, onPressed: () {}, text: "Buy"),
               appBar: customAppBar(
                   context: context,
                   title: "CheckOut Page",
-                  onPressedLeading: () => model.goBack(),
+                  onPressedLeading: () => model.goHome(),
                   actions: [NotificationButton()]),
               body: Container(
                   margin: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
@@ -41,9 +35,10 @@ class CheckOutView extends StatelessWidget {
                       Expanded(
                         child: ListView.builder(
                           shrinkWrap: true,
-                          itemCount: 1,
+                          itemCount: model.checkoutproducts.length,
                           itemBuilder: (context, index) {
-                            return singleCheckOutProduct(context, model, data);
+                            return singleCheckOutProduct(
+                                context, model, model.checkoutproducts[index]);
                           },
                         ),
                       ),
@@ -63,8 +58,9 @@ class CheckOutView extends StatelessWidget {
                                         bottomDetail(
                                             context: context,
                                             startName: "Your price",
-                                            endName: "\$ " +
-                                                subtotal.toStringAsFixed(2)),
+                                            endName: "\$ "
+                                            // subtotal.toStringAsFixed(2)
+                                            ),
                                         bottomDetail(
                                             context: context,
                                             startName: "Discount",

@@ -1,9 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eCommerce/app/locator.dart';
 import 'package:eCommerce/models/userModel.dart';
-import 'package:eCommerce/services/AuthService.dart';
 // import 'package:eCommerce/models/productModel.dart';
 import 'package:flutter/services.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
@@ -43,12 +41,13 @@ class FirebaseFirestoreService {
   }
 
   Future updateUserDetail(
-      {UserModel user, name, gender, phoneNumber, email, uid}) async {
+      {UserModel user, name, gender, phoneNumber, email, uid, image}) async {
     try {
       await _user.doc(user.id).update({
         "name": name,
         "gender": gender,
         "phoneNumber": phoneNumber,
+        "image": image,
       });
       await getUser(uid);
     } catch (e) {
@@ -258,6 +257,16 @@ class FirebaseFirestoreService {
 
       return e.toString();
     }
+  }
+
+  List cartProducts = [];
+
+  Future addCartProducts(Map product) async {
+    cartProducts.add(product);
+  }
+
+  void deleteCartProducts(index) {
+    cartProducts.removeAt(index);
   }
 
   // Future getAllUsersOnce(String currentUserUID) async {

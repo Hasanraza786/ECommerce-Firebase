@@ -105,17 +105,13 @@ class Routerr extends RouterBase {
     },
     CartView: (data) {
       return MaterialPageRoute<dynamic>(
-        builder: (context) => CartView(
-          cartDetail: data,
-        ),
+        builder: (context) => CartView(),
         settings: data,
       );
     },
     CheckOutView: (data) {
       return MaterialPageRoute<dynamic>(
-        builder: (context) => CheckOutView(
-          checkOutDetail: data,
-        ),
+        builder: (context) => CheckOutView(),
         settings: data,
       );
     },

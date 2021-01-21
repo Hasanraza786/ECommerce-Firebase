@@ -15,8 +15,7 @@ class ProfileView extends StatelessWidget {
         builder: (context, model, child) {
           print([
             "userrrrrNamee",
-            model.userNameController.text,
-            model.numberController.text
+            model.user.image,
           ]);
 
           return Scaffold(
@@ -63,10 +62,12 @@ class ProfileView extends StatelessWidget {
                                 children: [
                                   CircleAvatar(
                                     maxRadius: 65,
-                                    backgroundImage: model.imageFile == null
+                                    backgroundImage: model.user.image == ""
                                         ? AssetImage(
                                             "assets/images/profile.jpg")
-                                        : FileImage(model.imageFile),
+                                        : NetworkImage(
+                                            model.user.image,
+                                          ),
                                   ),
                                 ],
                               )),
@@ -119,7 +120,8 @@ class ProfileView extends StatelessWidget {
                                   singleTextField(
                                       controller: model.numberController,
                                       context: context,
-                                      name: model.numberController.text)
+                                      name: model.numberController.text,
+                                      inputType: TextInputType.number)
                                 ],
                               )
                             : Column(

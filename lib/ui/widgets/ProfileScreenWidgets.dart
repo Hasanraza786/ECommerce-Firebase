@@ -26,9 +26,10 @@ Widget singleContainer({context, startText, endText}) {
   );
 }
 
-Widget singleTextField({context, name, controller}) {
+Widget singleTextField({context, name, controller, inputType}) {
   return TextFormField(
     controller: controller,
+    keyboardType: inputType,
     decoration: InputDecoration(
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
       hintText: name ?? "",

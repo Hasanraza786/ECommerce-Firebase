@@ -6,23 +6,25 @@ import 'package:eCommerce/services/FireStoreService.dart';
 
 class CartViewModel extends BaseViewModel {
   NavigationService _navigationService = locator<NavigationService>();
-  FirebaseFirestoreService _firestoreService = locator<FirebaseFirestoreService>();
+  FirebaseFirestoreService _firestoreService =
+      locator<FirebaseFirestoreService>();
 
-  void addQuantity() {
-    count++;
+  void addQuantity({value}) {
+    print("asdasdasssssssssss");
+    value++;
     notifyListeners();
   }
 
-  int count;
+  void setCount() {
+    cartproducts = _firestoreService.cartProducts;
 
-  void setCount(value) {
-    count = value;
+    print(["detail", cartproducts.length, cartproducts]);
     notifyListeners();
   }
 
-  void removeQuantity() {
-    if (count > 1) {
-      count--;
+  void removeQuantity({value}) {
+    if (value > 1) {
+      value--;
     }
     notifyListeners();
   }
@@ -34,5 +36,11 @@ class CartViewModel extends BaseViewModel {
   void goToCheckOut(data) {
     _firestoreService.addNotification("notification");
     _navigationService.navigateTo(Routes.checkOutView, arguments: data);
+  }
+
+  List cartproducts = [];
+
+  void setCart() {
+    notifyListeners();
   }
 }

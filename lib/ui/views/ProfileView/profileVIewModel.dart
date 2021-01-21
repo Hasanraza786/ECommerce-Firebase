@@ -40,6 +40,7 @@ class ProfileViewModel extends BaseViewModel {
       await updateUser();
       isEdit();
     }
+    notifyListeners();
   }
 
   bool edit = false;
@@ -148,6 +149,9 @@ class ProfileViewModel extends BaseViewModel {
         name: userNameController.text,
         phoneNumber: numberController.text,
         email: user.email,
-        uid: user.id);
+        uid: user.id,
+        image: _authService.imageUrl != null ? _authService.imageUrl : "");
   }
+
+  notifyListeners();
 }
