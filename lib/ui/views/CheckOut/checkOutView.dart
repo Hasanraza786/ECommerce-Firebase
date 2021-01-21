@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:eCommerce/ui/views/CheckOut/checkOutViewModel.dart';
 import 'package:eCommerce/ui/widgets/CartViewWidgets.dart';
 import 'package:eCommerce/ui/widgets/CustomAppBar.dart';
@@ -10,16 +9,20 @@ class CheckOutView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<CheckOutViewModel>.reactive(
+        onModelReady: (model) => model.setCheckOut(),
         builder: (context, model, child) {
-          // double price = double.parse(data["price"]);
+          double subTotal;
           double discount = 3;
           double discountRupees;
           double shipping = 60;
           double totalRupees;
-
-          // double subtotal = price * data["quantity"];
-          // discountRupees = discount / 100 * subtotal;
-          // totalRupees = subtotal + shipping - discountRupees;
+          for (var i = 0; i < model.checkoutproducts.length; i++) {
+            subTotal = double.parse(model.checkoutproducts[i]["price"]) *
+                model.checkoutproducts[i]["quantity"];
+            discountRupees = discount / 100 * subTotal;
+            totalRupees = subTotal + shipping - discountRupees;
+            print(["Asdasda", subTotal, discountRupees, totalRupees]);
+          }
           return Scaffold(
               bottomNavigationBar: bottomNavigation(
                   context: context, onPressed: () {}, text: "Buy"),
@@ -38,7 +41,10 @@ class CheckOutView extends StatelessWidget {
                           itemCount: model.checkoutproducts.length,
                           itemBuilder: (context, index) {
                             return singleCheckOutProduct(
-                                context, model, model.checkoutproducts[index]);
+                                context: context,
+                                model: model,
+                                data: model.checkoutproducts[index],
+                                onPressed: () => model.deleteProduct(index));
                           },
                         ),
                       ),
@@ -55,27 +61,41 @@ class CheckOutView extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        bottomDetail(
-                                            context: context,
-                                            startName: "Your price",
-                                            endName: "\$ "
-                                            // subtotal.toStringAsFixed(2)
-                                            ),
+                                        model.checkoutproducts != null &&
+                                                subTotal != null
+                                            ? bottomDetail(
+                                                context: context,
+                                                startName: "Your price",
+                                                endName: "\$ " +
+                                                    subTotal.toStringAsFixed(2))
+                                            : bottomDetail(
+                                                context: context,
+                                                startName: "Your price",
+                                                endName: "\$ 0"),
                                         bottomDetail(
                                             context: context,
                                             startName: "Discount",
-                                            endName:
+                                            endName: " \$ " +
                                                 discount.toStringAsFixed(2)),
                                         bottomDetail(
                                             context: context,
                                             startName: "Shipping",
                                             endName: "\$ " +
                                                 shipping.toStringAsFixed(2)),
-                                        bottomDetail(
-                                            context: context,
-                                            startName: "Total",
-                                            endName: "\$ " +
-                                                totalRupees.toStringAsFixed(2)),
+                                        model.checkoutproducts != null &&
+                                                totalRupees != null
+                                            ? bottomDetail(
+                                                context: context,
+                                                startName: "Total",
+                                                endName: totalRupees != null
+                                                    ? "\$ " +
+                                                        totalRupees
+                                                            .toStringAsFixed(2)
+                                                    : "")
+                                            : bottomDetail(
+                                                context: context,
+                                                startName: "Total",
+                                                endName: "\$ 0"),
                                       ])),
                             ]),
                       ),

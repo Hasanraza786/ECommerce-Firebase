@@ -10,7 +10,7 @@ import 'package:flutter/services.dart';
 // import 'package:eCommerce/models/TokenModel.dart';
 // import 'package:eCommerce/models/UserModel.dart';
 
-class FirebaseFirestoreService {
+class StorageService {
   final CollectionReference _user =
       FirebaseFirestore.instance.collection('user');
 

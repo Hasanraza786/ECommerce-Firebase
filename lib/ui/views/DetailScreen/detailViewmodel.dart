@@ -1,14 +1,13 @@
 import 'package:eCommerce/app/locator.dart';
 import 'package:eCommerce/app/router.gr.dart';
-import 'package:eCommerce/services/FireStoreService.dart';
+import 'package:eCommerce/services/storageService.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class DetailViewModel extends BaseViewModel {
   NavigationService _navigationService = locator<NavigationService>();
-  FirebaseFirestoreService _firestoreService =
-      locator<FirebaseFirestoreService>();
+  StorageService _storageService = locator<StorageService>();
   List<String> size = ["S", "M", "L", "XXL"];
 
   List<Color> colors = [
@@ -40,8 +39,8 @@ class DetailViewModel extends BaseViewModel {
 
   List products = [];
   Future addCart(Map product) async {
-    await _firestoreService.addCartProducts(product);
-    products = _firestoreService.cartProducts;
+    await _storageService.addCartProducts(product);
+    products = _storageService.cartProducts;
     if (products != null) {
       print([products, "proooo"]);
 

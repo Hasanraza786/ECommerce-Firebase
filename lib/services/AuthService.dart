@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:eCommerce/app/locator.dart';
 import 'package:eCommerce/models/userModel.dart';
-import 'package:eCommerce/services/FireStoreService.dart';
+import 'package:eCommerce/services/storageService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -9,8 +9,7 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  FirebaseFirestoreService _firestoreService =
-      locator<FirebaseFirestoreService>();
+  StorageService _storageService = locator<StorageService>();
 
   UserModel _currentUser;
   UserModel get currentUser => _currentUser;
@@ -39,7 +38,7 @@ class AuthService {
           phoneNumber: phoneNumber,
           image: image);
 
-      await _firestoreService.createUser(_currentUser);
+      await _storageService.createUser(_currentUser);
 
       return authResult.user != null;
     } catch (e) {
@@ -74,7 +73,7 @@ class AuthService {
   Future _populateCurrentUser(User user) async {
     try {
       if (user != null) {
-        _currentUser = await _firestoreService.getUser(user.uid);
+        _currentUser = await _storageService.getUser(user.uid);
       }
     } catch (e) {
       return e.toString();

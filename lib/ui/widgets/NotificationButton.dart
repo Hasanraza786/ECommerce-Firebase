@@ -1,15 +1,14 @@
+import 'package:eCommerce/services/storageService.dart';
 import 'package:flutter/material.dart';
 import 'package:eCommerce/app/locator.dart';
 import 'package:badges/badges.dart';
-import 'package:eCommerce/services/FireStoreService.dart';
 
 class NotificationButton extends StatelessWidget {
-  final FirebaseFirestoreService _firestoreService =
-      locator<FirebaseFirestoreService>();
+  final StorageService _storageService = locator<StorageService>();
   @override
   Widget build(BuildContext context) {
     return Badge(
-      badgeContent: Text(_firestoreService.notificationList.length.toString(),
+      badgeContent: Text(_storageService.notificationList.length.toString(),
           style: Theme.of(context)
               .textTheme
               .subtitle2

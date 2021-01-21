@@ -1,18 +1,13 @@
 import 'package:eCommerce/app/locator.dart';
 import 'package:eCommerce/app/router.gr.dart';
-import 'package:eCommerce/services/fireStoreService.dart';
+import 'package:eCommerce/services/storageService.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class CheckOutViewModel extends BaseViewModel {
   NavigationService _navigationService = locator<NavigationService>();
-  FirebaseFirestoreService _firestoreService =
-      locator<FirebaseFirestoreService>();
-  int count = 1;
 
-  void goBack() {
-    _navigationService.popRepeated(1);
-  }
+  StorageService _storageService = locator<StorageService>();
 
   void goHome() {
     _navigationService.pushNamedAndRemoveUntil(Routes.homeView);
@@ -20,8 +15,14 @@ class CheckOutViewModel extends BaseViewModel {
 
   List checkoutproducts = [];
 
-  void setCart() {
-    checkoutproducts = _firestoreService.cartProducts;
+  void setCheckOut() async {
+    checkoutproducts = _storageService.cartProducts;
+
+    notifyListeners();
+  }
+
+  void deleteProduct(index) {
+    _storageService.deleteCartProducts(index);
     notifyListeners();
   }
 }

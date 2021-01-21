@@ -1,7 +1,7 @@
 import 'package:eCommerce/app/locator.dart';
 import 'package:eCommerce/app/router.gr.dart';
 import 'package:eCommerce/models/productModel.dart';
-import 'package:eCommerce/services/FireStoreService.dart';
+import 'package:eCommerce/services/storageService.dart';
 // import 'package:eCommerce/services/FirebaseAuthService.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +10,7 @@ import 'package:stacked_services/stacked_services.dart';
 class HomeViewModel extends BaseViewModel {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   NavigationService _navigationService = locator<NavigationService>();
-  FirebaseFirestoreService _firestoreService =
-      locator<FirebaseFirestoreService>();
+  StorageService _storageService = locator<StorageService>();
   // FirebaseAuthService _firebaseAuthService = locator<FirebaseAuthService>();
 
   ProductModel menShirtData;
@@ -47,8 +46,8 @@ class HomeViewModel extends BaseViewModel {
   String tieIcon;
 
   Future getFeature() async {
-    await _firestoreService.getFeatureProducts();
-    var result = _firestoreService.featureProductsData;
+    await _storageService.getFeatureProducts();
+    var result = _storageService.featureProductsData;
 
     if (result != null) {
       featureProducts = result;
@@ -66,8 +65,8 @@ class HomeViewModel extends BaseViewModel {
   }
 
   Future getArchive() async {
-    await _firestoreService.getArchivesProducts();
-    var result = _firestoreService.archiveProductsData;
+    await _storageService.getArchivesProducts();
+    var result = _storageService.archiveProductsData;
 
     if (result != null) {
       archiveProducts = result;
@@ -85,8 +84,8 @@ class HomeViewModel extends BaseViewModel {
   }
 
   Future getHomeFeatures() async {
-    await _firestoreService.getHomeFeature();
-    var result = _firestoreService.homefeatureData;
+    await _storageService.getHomeFeature();
+    var result = _storageService.homefeatureData;
 
     if (result != null) {
       homeFeaturesProducts = result;
@@ -103,8 +102,8 @@ class HomeViewModel extends BaseViewModel {
   }
 
   Future getHomeArchives() async {
-    await _firestoreService.getHomeArchives();
-    var result = _firestoreService.homearchiveData;
+    await _storageService.getHomeArchives();
+    var result = _storageService.homearchiveData;
 
     if (result != null) {
       homeArchivesProducts = result;
@@ -121,8 +120,8 @@ class HomeViewModel extends BaseViewModel {
   }
 
   Future getCategoryIcons() async {
-    await _firestoreService.getCategoryIcon();
-    var result = _firestoreService.categoryIconData;
+    await _storageService.getCategoryIcon();
+    var result = _storageService.categoryIconData;
 
     if (result != null) {
       dressIcon = result[0]["image"];
@@ -135,28 +134,28 @@ class HomeViewModel extends BaseViewModel {
   }
 
   Future getCategoriesData() async {
-    await _firestoreService.getDress();
-    var dress = _firestoreService.dress;
+    await _storageService.getDress();
+    var dress = _storageService.dress;
     if (dress != null) {
       dressData = dress;
     }
-    await _firestoreService.getPants();
-    var pant = _firestoreService.pants;
+    await _storageService.getPants();
+    var pant = _storageService.pants;
     if (pant != null) {
       pantData = pant;
     }
-    await _firestoreService.getShirts();
-    var shirt = _firestoreService.shirts;
+    await _storageService.getShirts();
+    var shirt = _storageService.shirts;
     if (shirt != null) {
       shirtData = shirt;
     }
-    await _firestoreService.getShoes();
-    var shoe = _firestoreService.shoes;
+    await _storageService.getShoes();
+    var shoe = _storageService.shoes;
     if (shoe != null) {
       shoeData = shoe;
     }
-    await _firestoreService.getTies();
-    var tie = _firestoreService.ties;
+    await _storageService.getTies();
+    var tie = _storageService.ties;
     if (tie != null) {
       tieData = tie;
     }

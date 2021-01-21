@@ -2,7 +2,7 @@ import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:eCommerce/app/locator.dart';
 import 'package:eCommerce/models/userModel.dart';
 import 'package:eCommerce/services/AuthService.dart';
-import 'package:eCommerce/services/FireStoreService.dart';
+import 'package:eCommerce/services/storageService.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -11,8 +11,7 @@ import 'dart:io';
 
 class ProfileViewModel extends BaseViewModel {
   AuthService _authService = locator<AuthService>();
-  FirebaseFirestoreService _firestoreService =
-      locator<FirebaseFirestoreService>();
+  StorageService _storageService = locator<StorageService>();
   NavigationService _navigationService = locator<NavigationService>();
   UserModel get user => _authService.currentUser;
   TextEditingController userNameController;
@@ -143,7 +142,7 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   Future updateUser() async {
-    await _firestoreService.updateUserDetail(
+    await _storageService.updateUserDetail(
         gender: isMale == true ? "Male" : "Female",
         user: user,
         name: userNameController.text,

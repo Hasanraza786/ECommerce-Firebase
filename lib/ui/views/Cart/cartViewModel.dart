@@ -1,46 +1,44 @@
 import 'package:eCommerce/app/locator.dart';
 import 'package:eCommerce/app/router.gr.dart';
+import 'package:eCommerce/services/storageService.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:eCommerce/services/FireStoreService.dart';
 
 class CartViewModel extends BaseViewModel {
   NavigationService _navigationService = locator<NavigationService>();
-  FirebaseFirestoreService _firestoreService =
-      locator<FirebaseFirestoreService>();
+  StorageService _storageService =
+      locator<StorageService>();
 
-  void addQuantity({value}) {
-    print("asdasdasssssssssss");
-    value++;
+  List cartproducts = [];
+
+  void addQuantity({index}) {
+    cartproducts[index]["quantity"]++;
     notifyListeners();
   }
 
   void setCount() {
-    cartproducts = _firestoreService.cartProducts;
-
-    print(["detail", cartproducts.length, cartproducts]);
+    cartproducts = _storageService.cartProducts;
     notifyListeners();
   }
 
-  void removeQuantity({value}) {
-    if (value > 1) {
-      value--;
+  void removeQuantity({index}) {
+    if (cartproducts[index]["quantity"] > 1) {
+      cartproducts[index]["quantity"]--;
     }
     notifyListeners();
   }
 
-  void goBack() {
-    _navigationService.popRepeated(1);
+  void goHome() {
+    _navigationService.pushNamedAndRemoveUntil(Routes.homeView);
   }
 
   void goToCheckOut(data) {
-    _firestoreService.addNotification("notification");
+    _storageService.addNotification("notification");
     _navigationService.navigateTo(Routes.checkOutView, arguments: data);
   }
 
-  List cartproducts = [];
-
-  void setCart() {
+  void deleteCart(index) {
+    _storageService.deleteCartProducts(index);
     notifyListeners();
   }
 }

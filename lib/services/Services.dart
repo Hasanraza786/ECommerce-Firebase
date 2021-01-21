@@ -1,6 +1,6 @@
 import 'package:eCommerce/services/AuthService.dart';
-import 'package:eCommerce/services/FireStoreService.dart';
 import 'package:eCommerce/services/ThemeService.dart';
+import 'package:eCommerce/services/storageService.dart';
 import 'package:injectable/injectable.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -15,5 +15,5 @@ abstract class Services {
   @lazySingleton
   AuthService get authService;
   @lazySingleton
-  FirebaseFirestoreService get firebaseFirestoreService;
+  StorageService get storageService;
 }

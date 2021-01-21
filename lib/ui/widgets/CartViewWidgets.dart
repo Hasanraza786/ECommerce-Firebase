@@ -69,13 +69,13 @@ Widget singleCartProduct(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           GestureDetector(
-                              child: Icon(Icons.remove), onTap: onTapAdd),
+                              child: Icon(Icons.remove), onTap: onTapRemove),
                           Text(
                             quantity,
                             style: Theme.of(context).textTheme.headline3,
                           ),
                           GestureDetector(
-                              child: Icon(Icons.add), onTap: onTapRemove)
+                              child: Icon(Icons.add), onTap: onTapAdd)
                         ],
                       ),
                     ),
@@ -112,15 +112,15 @@ Widget bottomNavigation({
 
 // CheckOut Widgets
 
-Widget singleCheckOutProduct(context, model, data) {
+Widget singleCheckOutProduct({context, model, data, onPressed}) {
   return Container(
       height: 150,
-      width: double.infinity,
+      width: MediaQuery.of(context).size.width * 1,
       child: Card(
         child: Row(
           children: [
             Container(
-              width: 140,
+              width: 137,
               height: 130,
               decoration: BoxDecoration(
                   image: DecorationImage(
@@ -128,13 +128,14 @@ Widget singleCheckOutProduct(context, model, data) {
             ),
             Container(
               height: 140,
-              width: 180,
+              width: 185,
               child: ListTile(
                 title: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
+                      width: 160,
                       height: 15,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -150,7 +151,7 @@ Widget singleCheckOutProduct(context, model, data) {
                                 color: AppColors.priceColor,
                                 size: 20,
                               ),
-                              onPressed: () => model.deleteCart())
+                              onPressed: onPressed)
                         ],
                       ),
                     ),

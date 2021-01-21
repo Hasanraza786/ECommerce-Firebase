@@ -1,13 +1,12 @@
 import 'package:eCommerce/app/locator.dart';
-import 'package:eCommerce/services/FireStoreService.dart';
+import 'package:eCommerce/services/storageService.dart';
 // import 'package:eCommerce/app/router.gr.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class ProductListViewModel extends BaseViewModel {
   NavigationService _navigationService = locator<NavigationService>();
-  FirebaseFirestoreService _firestoreService =
-      locator<FirebaseFirestoreService>();
+  StorageService _storageService = locator<StorageService>();
 
   void backToHome() {
     _navigationService.popRepeated(1);
@@ -16,13 +15,13 @@ class ProductListViewModel extends BaseViewModel {
 // List featureProducts
 
   Future getFeature() async {
-    await _firestoreService.getFeatureProducts();
+    await _storageService.getFeatureProducts();
 
     notifyListeners();
   }
 
   Future getArchive() async {
-    await _firestoreService.getArchivesProducts();
+    await _storageService.getArchivesProducts();
 
     notifyListeners();
   }

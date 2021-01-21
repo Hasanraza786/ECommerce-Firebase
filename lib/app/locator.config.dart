@@ -5,12 +5,10 @@
 // **************************************************************************
 
 import 'package:eCommerce/services/AuthService.dart';
-import 'package:eCommerce/services/FireStoreService.dart';
-
+import 'package:eCommerce/services/storageService.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:stacked_services/stacked_services.dart';
-
 import '../services/Services.dart';
 import '../services/ThemeService.dart';
 
@@ -28,9 +26,7 @@ GetIt $initGetIt(
   gh.lazySingleton<NavigationService>(() => services.navigationService);
   gh.lazySingleton<ThemeService>(() => services.themeService);
   gh.lazySingleton<AuthService>(() => services.authService);
-  gh.lazySingleton<FirebaseFirestoreService>(
-      () => services.firebaseFirestoreService);
-
+  gh.lazySingleton<StorageService>(() => services.storageService);
   return get;
 }
 
@@ -42,11 +38,8 @@ class _$Services extends Services {
   NavigationService get navigationService => NavigationService();
   @override
   ThemeService get themeService => ThemeService();
-
   @override
   AuthService get authService => AuthService();
-
   @override
-  FirebaseFirestoreService get firebaseFirestoreService =>
-      FirebaseFirestoreService();
+  StorageService get storageService => StorageService();
 }

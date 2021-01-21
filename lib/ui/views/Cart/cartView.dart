@@ -19,7 +19,7 @@ class CartView extends StatelessWidget {
               appBar: customAppBar(
                   context: context,
                   title: "Cart Page",
-                  onPressedLeading: () => model.goBack(),
+                  onPressedLeading: () => model.goHome(),
                   actions: [NotificationButton()]),
               body: ListView.builder(
                 itemCount: model.cartproducts.length,
@@ -29,10 +29,9 @@ class CartView extends StatelessWidget {
                       data: model.cartproducts[index],
                       quantity:
                           model.cartproducts[index]["quantity"].toString(),
-                      onTapAdd: () => model.addQuantity(
-                          value: model.cartproducts[index]["quantity"]),
-                      onTapRemove: () => model.removeQuantity(
-                          value: model.cartproducts[index]["quantity"]));
+                      onTapAdd: () => model.addQuantity(index: index),
+                      onTapRemove: () => model.removeQuantity(index: index),
+                      onPressed: () => model.deleteCart(index));
                 },
               ));
         },
