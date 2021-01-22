@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eCommerce/models/userModel.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:eCommerce/models/productModel.dart';
 import 'package:flutter/services.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
@@ -52,12 +53,13 @@ class StorageService {
     FirebaseFirestore.instance.collection("Order").doc(user.uid).set({
       "Products": products
           .map((e) => {
-                "Product Name": e["name"],
-                "Product Price": e["price"],
-                "Product Quantity": e["quantity"],
+                "ProductName": e["name"],
+                "ProductPrice": e["price"],
+                "ProductQuantity": e["quantity"],
+                "ProductImage": e["image"],
               })
           .toList(),
-      "Total Price": totalPrice,
+      "TotalPrice": totalPrice,
       "UserName ": userName,
       "UserEmail ": userEmail,
       "UserAdress ": userAdress,
@@ -90,6 +92,13 @@ class StorageService {
 
       return e.toString();
     }
+  }
+
+  Future addMessage({User user, name, email, message}) async {
+    FirebaseFirestore.instance
+        .collection("Message")
+        .doc(user.uid)
+        .set({"Name": name, "Email": email, "Message": message});
   }
 
   List categoryIconData = [];
@@ -332,38 +341,6 @@ class StorageService {
     }).toList();
     return searchShirt;
   }
-
-  // List searchPantList(String query) {
-  //   List searchPant = pants.where((element) {
-  //     return element["name"].toUpperCase().contains(query) ||
-  //         element["name"].toLowerCase().contains(query);
-  //   }).toList();
-  //   return searchPant;
-  // }
-
-  // List searchTieList(String query) {
-  //   List searchTie = ties.where((element) {
-  //     return element["name"].toUpperCase().contains(query) ||
-  //         element["name"].toLowerCase().contains(query);
-  //   }).toList();
-  //   return searchTie;
-  // }
-
-  // List searchShoesList(String query) {
-  //   List searchShoes = shoes.where((element) {
-  //     return element["name"].toUpperCase().contains(query) ||
-  //         element["name"].toLowerCase().contains(query);
-  //   }).toList();
-  //   return searchShoes;
-  // }
-
-  // List searchDressList(String query) {
-  //   List searchDress = dress.where((element) {
-  //     return element["name"].toUpperCase().contains(query) ||
-  //         element["name"].toLowerCase().contains(query);
-  //   }).toList();
-  //   return searchDress;
-  // }
 
   // Future getAllUsersOnce(String currentUserUID) async {
   //   try {

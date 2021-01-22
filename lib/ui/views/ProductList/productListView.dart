@@ -84,10 +84,17 @@ class ProductListView extends StatelessWidget {
                         height: 660,
                         child: GridView.builder(
                           itemCount: data["list"].length,
-                          itemBuilder: (context, index) => SingleProduct(
-                            image: data["list"][index]["image"],
-                            name: data["list"][index]["name"],
-                            price: data["list"][index]["price"],
+                          itemBuilder: (context, index) => GestureDetector(
+                            onTap: () => model.goDetail({
+                              "image": data["list"][index]["image"],
+                              "name": data["list"][index]["name"],
+                              "price": data["list"][index]["price"]
+                            }),
+                            child: SingleProduct(
+                              image: data["list"][index]["image"],
+                              name: data["list"][index]["name"],
+                              price: data["list"][index]["price"],
+                            ),
                           ),
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(

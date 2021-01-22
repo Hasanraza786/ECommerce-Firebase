@@ -1,4 +1,5 @@
 import 'package:eCommerce/app/locator.dart';
+import 'package:eCommerce/app/router.gr.dart';
 import 'package:eCommerce/services/storageService.dart';
 // import 'package:eCommerce/app/router.gr.dart';
 import 'package:stacked/stacked.dart';
@@ -39,5 +40,9 @@ class ProductListViewModel extends BaseViewModel {
     await getFeature();
     await getArchive();
     notifyListeners();
+  }
+
+  void goDetail(Map detail) {
+    _navigationService.replaceWith(Routes.detailView, arguments: detail);
   }
 }

@@ -29,4 +29,8 @@ class DrawerViewModel extends BaseViewModel {
   void goToProfile() {
     _navigationService.navigateTo(Routes.profileView);
   }
+
+  void goToContactUs() {
+    _navigationService.navigateTo(Routes.contactUsView);
+  }
 }

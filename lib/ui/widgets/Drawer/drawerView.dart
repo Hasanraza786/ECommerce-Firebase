@@ -82,11 +82,14 @@ class DrawerView extends StatelessWidget {
                     ListTile(
                       onTap: () {
                         model.changeColor(
-                            a: model.homeColor = false,
-                            b: model.aboutColor = false,
-                            c: model.cartColor = false,
-                            d: model.profileColor = false,
-                            color: model.contactColor = true);
+                          a: model.homeColor = false,
+                          b: model.aboutColor = false,
+                          c: model.cartColor = false,
+                          d: model.profileColor = false,
+                          color: model.contactColor = true,
+                        );
+
+                        model.goToContactUs();
                       },
                       selected: model.contactColor,
                       leading: Icon(Icons.phone),
