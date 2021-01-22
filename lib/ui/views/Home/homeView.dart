@@ -3,12 +3,12 @@ import 'package:eCommerce/ui/views/Home/homeViewModel.dart';
 import 'package:eCommerce/ui/widgets/CustomAppBar.dart';
 import 'package:eCommerce/ui/widgets/Drawer/drawerView.dart';
 import 'package:eCommerce/ui/widgets/NotificationButton.dart';
-import 'package:eCommerce/ui/widgets/Search/searchCategory.dart';
 import 'package:eCommerce/ui/widgets/SingleProduct.dart';
 import 'package:eCommerce/ui/widgets/categoryProduct.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class HomeView extends StatelessWidget {
   final GlobalKey<ScaffoldState> key = GlobalKey<ScaffoldState>();
@@ -80,7 +80,7 @@ class HomeView extends StatelessWidget {
                                                   "isCategory": true,
                                                 }),
                                             color: AppColors.dressColor,
-                                            image: model.dressIcon),
+                                            image: Icons.directions_subway),
                                         CategoryProduct(
                                             onTap: () => model.goToProductList({
                                                   "name": "Shirt",
@@ -88,7 +88,7 @@ class HomeView extends StatelessWidget {
                                                   "isCategory": true,
                                                 }),
                                             color: AppColors.shirtColor,
-                                            image: model.shirtIcon),
+                                            image: Ionicons.ios_shirt),
                                         CategoryProduct(
                                           onTap: () => model.goToProductList({
                                             "name": "Shoe",
@@ -96,7 +96,8 @@ class HomeView extends StatelessWidget {
                                             "isCategory": true,
                                           }),
                                           color: AppColors.shoeColor,
-                                          image: model.shoeIcon,
+                                          image: MaterialCommunityIcons
+                                              .shoe_formal,
                                         ),
                                         CategoryProduct(
                                             onTap: () => model.goToProductList({
@@ -105,7 +106,7 @@ class HomeView extends StatelessWidget {
                                                   "isCategory": true,
                                                 }),
                                             color: AppColors.pantColor,
-                                            image: model.pantIcon),
+                                            image: Icons.palette),
                                         CategoryProduct(
                                             onTap: () => model.goToProductList({
                                                   "name": "Tie",
@@ -113,7 +114,7 @@ class HomeView extends StatelessWidget {
                                                   "isCategory": true,
                                                 }),
                                             color: AppColors.tieColor,
-                                            image: model.tieIcon)
+                                            image: MaterialCommunityIcons.tie)
                                       ],
                                     ),
                                   ),

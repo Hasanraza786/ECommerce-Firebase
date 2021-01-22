@@ -302,6 +302,12 @@
       "languageVersion": "2.2"
     },
     {
+      "name": "flutter_vector_icons",
+      "rootUri": "file:///C:/Users/asan%20raza/Desktop/hassan/flutter_windows_1.20.4-stable/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_vector_icons-0.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
       "name": "flutter_web_plugins",
       "rootUri": "file:///C:/Users/asan%20raza/Desktop/hassan/flutter_windows_1.20.4-stable/flutter/packages/flutter_web_plugins",
       "packageUri": "lib/",
@@ -692,7 +698,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-01-20T09:50:15.704555Z",
+  "generated": "2021-01-22T14:26:33.134994Z",
   "generator": "pub",
   "generatorVersion": "2.10.4"
 }

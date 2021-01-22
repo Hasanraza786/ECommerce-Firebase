@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CategoryProduct extends StatelessWidget {
-  final String image;
+  final IconData image;
   final Color color;
   final Function onTap;
 
@@ -17,11 +17,10 @@ class CategoryProduct extends StatelessWidget {
         child: Container(
           color: Colors.transparent,
           height: 40,
-          child: Image(
-            // color: Colors.white,
-            image: NetworkImage(
-              image,
-            ),
+          child: Icon(
+            image,
+            size: 45,
+            color: Colors.white,
           ),
         ),
       ),

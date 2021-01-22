@@ -160,7 +160,13 @@ class ProfileViewModel extends BaseViewModel {
         uid: user.id,
         image: user.image != null ? user.image : "",
         adress: adressController.text);
+
+    user.name = userNameController.text;
+    user.adress = adressController.text;
+    user.phoneNumber = numberController.text;
+    user.gender = isMale == true ? "Male" : "Female";
     await _storageService.getUser(user.id);
+    print(["nameeee", user.name]);
 
     notifyListeners();
   }
