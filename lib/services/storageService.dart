@@ -326,6 +326,7 @@ class StorageService {
 
   List searchProductList(String query) {
     List searchShirt = searchProduct.where((element) {
+      print(["asdsadas", element]);
       return element["name"].toUpperCase().contains(query) ||
           element["name"].toLowerCase().contains(query);
     }).toList();

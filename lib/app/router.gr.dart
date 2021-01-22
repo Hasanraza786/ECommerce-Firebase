@@ -7,8 +7,10 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:auto_route/auto_route.dart';
+import 'package:eCommerce/ui/views/About/aboutView.dart';
 import 'package:eCommerce/ui/views/Cart/cartView.dart';
 import 'package:eCommerce/ui/views/CheckOut/checkOutView.dart';
+import 'package:eCommerce/ui/views/ContactUs/contactUsView.dart';
 import 'package:eCommerce/ui/views/DetailScreen/detailView.dart';
 import 'package:eCommerce/ui/views/Home/homeView.dart';
 import 'package:eCommerce/ui/views/ProductList/productListView.dart';
@@ -30,6 +32,8 @@ class Routes {
   static const String checkOutView = '/checkOut-view';
   static const String welcomeView = '/welcome-view';
   static const String profileView = '/profile-view';
+  static const String contactUsView = '/contactUs-view';
+  static const String aboutView = '/about-view';
 
   static const all = <String>{
     startupView,
@@ -42,6 +46,8 @@ class Routes {
     checkOutView,
     welcomeView,
     profileView,
+    contactUsView,
+    aboutView,
   };
 }
 
@@ -59,6 +65,8 @@ class Routerr extends RouterBase {
     RouteDef(Routes.checkOutView, page: CheckOutView),
     RouteDef(Routes.welcomeView, page: WelcomeView),
     RouteDef(Routes.profileView, page: ProfileView),
+    RouteDef(Routes.contactUsView, page: ContactUsView),
+    RouteDef(Routes.aboutView, page: AboutView),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
@@ -124,6 +132,18 @@ class Routerr extends RouterBase {
     ProfileView: (data) {
       return MaterialPageRoute<dynamic>(
         builder: (context) => ProfileView(),
+        settings: data,
+      );
+    },
+    ContactUsView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => ContactUsView(),
+        settings: data,
+      );
+    },
+    AboutView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => AboutView(),
         settings: data,
       );
     },

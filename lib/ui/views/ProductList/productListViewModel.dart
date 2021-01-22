@@ -12,8 +12,11 @@ class ProductListViewModel extends BaseViewModel {
     _navigationService.popRepeated(1);
   }
 
-  Future getList(list) async {
-    _storageService.getSearchCategory(list: list);
+  Future getList({list, isCategory}) async {
+    isCategory == true
+        ? _storageService.getSearchCategory(list: list)
+        : _storageService.getSearchProduct(list: list);
+
     notifyListeners();
   }
 
@@ -31,8 +34,8 @@ class ProductListViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void getProducts(list) async {
-    await getList(list);
+  void getProducts({list, isCategory}) async {
+    await getList(list: list, isCategory: isCategory);
     await getFeature();
     await getArchive();
     notifyListeners();

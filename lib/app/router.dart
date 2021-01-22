@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route_annotations.dart';
+import 'package:eCommerce/ui/views/About/aboutView.dart';
 import 'package:eCommerce/ui/views/Cart/cartView.dart';
 import 'package:eCommerce/ui/views/CheckOut/checkOutView.dart';
+import 'package:eCommerce/ui/views/ContactUs/contactUsView.dart';
 import 'package:eCommerce/ui/views/DetailScreen/detailView.dart';
 import 'package:eCommerce/ui/views/Home/homeView.dart';
 import 'package:eCommerce/ui/views/ProductList/productListView.dart';
@@ -22,6 +24,8 @@ import 'package:eCommerce/ui/views/ProfileView/profileView.dart';
     MaterialRoute(page: CheckOutView),
     MaterialRoute(page: WelcomeView),
     MaterialRoute(page: ProfileView),
+    MaterialRoute(page: ContactUsView),
+    MaterialRoute(page: AboutView),
   ],
 )
 class $Router {}

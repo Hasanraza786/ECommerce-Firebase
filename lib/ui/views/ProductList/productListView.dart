@@ -14,7 +14,8 @@ class ProductListView extends StatelessWidget {
   Widget build(BuildContext context) {
     Map data = productList.arguments;
     return ViewModelBuilder<ProductListViewModel>.reactive(
-        onModelReady: (model) => model.getProducts(data["list"]),
+        onModelReady: (model) => model.getProducts(
+            list: data["list"], isCategory: data["isCategory"]),
         builder: (context, model, child) {
           return Scaffold(
             appBar: AppBar(
