@@ -56,7 +56,9 @@ Widget imageCardDescription() {
   );
 }
 
-Widget sizeContainer(context, model) {
+Widget sizeContainer(
+  context,
+) {
   return Column(children: [
     SizedBox(
       height: 15,
@@ -68,29 +70,12 @@ Widget sizeContainer(context, model) {
     SizedBox(
       height: 15,
     ),
-    Container(
-      height: 60,
-      width: double.infinity,
-      child: Center(
-        child: ListView.builder(
-          itemExtent: 75,
-          scrollDirection: Axis.horizontal,
-          itemCount: model.size.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: EdgeInsets.only(left: 15.0),
-              child: ProductContainer(
-                name: model.size[index],
-              ),
-            );
-          },
-        ),
-      ),
-    )
   ]);
 }
 
-Widget colorContainer(context, model) {
+Widget colorContainer(
+  context,
+) {
   return Column(
     children: [
       SizedBox(
@@ -102,25 +87,6 @@ Widget colorContainer(context, model) {
       ),
       SizedBox(
         height: 15,
-      ),
-      Container(
-        height: 60,
-        width: double.infinity,
-        child: Center(
-          child: ListView.builder(
-            itemExtent: 75,
-            scrollDirection: Axis.horizontal,
-            itemCount: model.colors.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: EdgeInsets.only(left: 15.0),
-                child: ProductContainer(
-                  color: model.colors[index],
-                ),
-              );
-            },
-          ),
-        ),
       ),
     ],
   );

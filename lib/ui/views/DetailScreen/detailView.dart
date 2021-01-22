@@ -3,6 +3,7 @@ import 'package:eCommerce/ui/views/DetailScreen/detailViewmodel.dart';
 import 'package:eCommerce/ui/widgets/CustomAppBar.dart';
 import 'package:eCommerce/ui/widgets/DetailViewWidgets.dart';
 import 'package:eCommerce/ui/widgets/NotificationButton.dart';
+import 'package:eCommerce/ui/widgets/ProductContainer/productContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -31,8 +32,48 @@ class DetailView extends StatelessWidget {
                       imageCard(context, data),
                       imageCardDetail(context, data),
                       imageCardDescription(),
-                      sizeContainer(context, model),
-                      colorContainer(context, model),
+                      sizeContainer(
+                        context,
+                      ),
+                      Container(
+                          width: 265,
+                          child: ToggleButtons(
+                            children: [
+                              Text("S"),
+                              Text("M"),
+                              Text("L"),
+                              Text("XL"),
+                            ],
+                            onPressed: (index) =>
+                                model.setIndex(index, model.isSelected),
+                            isSelected: model.isSelected,
+                          )),
+                      colorContainer(
+                        context,
+                      ),
+                      Container(
+                          width: 265,
+                          child: ToggleButtons(
+                            renderBorder: false,
+                            selectedColor: Color(0xff746bc9),
+                            children: [
+                              ProductContainer(
+                                color: Colors.blue[200],
+                              ),
+                              ProductContainer(
+                                color: Colors.green[200],
+                              ),
+                              ProductContainer(
+                                color: Colors.yellow[200],
+                              ),
+                              ProductContainer(
+                                color: Colors.cyan[300],
+                              ),
+                            ],
+                            onPressed: (index) =>
+                                model.setIndex(index, model.colored),
+                            isSelected: model.colored,
+                          )),
                       quantityContainer(context, model),
                       button(
                           onPressed: () => model.addCart({

@@ -23,13 +23,9 @@ class ProfileViewModel extends BaseViewModel {
   void validation() async {
     if (userNameController.text.isEmpty &&
         numberController.text.isEmpty &&
-        adressController.text.isEmpty &&
-        imageFile != null) {
+        adressController.text.isEmpty) {
       scaffoldKey.currentState
           .showSnackBar(SnackBar(content: Text("All Field Are Empty")));
-    } else if (imageFile == null) {
-      scaffoldKey.currentState
-          .showSnackBar(SnackBar(content: Text("Image must not be Null")));
     } else if (userNameController.text.length < 6) {
       scaffoldKey.currentState
           .showSnackBar(SnackBar(content: Text("Name Must be 6")));
@@ -41,8 +37,7 @@ class ProfileViewModel extends BaseViewModel {
       scaffoldKey.currentState
           .showSnackBar(SnackBar(content: Text("Adress must not be empty")));
     } else {
-      await imageUpload();
-      await updateUser();
+      user.image == null ? await imageUpload() : await updateUser();
       isEdit();
     }
     notifyListeners();
@@ -50,8 +45,9 @@ class ProfileViewModel extends BaseViewModel {
 
   bool edit = false;
 
-  void isEdit() {
+  void isEdit() async {
     edit = !edit;
+    await _storageService.getUser(user.id);
     notifyListeners();
   }
 
@@ -77,6 +73,7 @@ class ProfileViewModel extends BaseViewModel {
 
   void goBack() {
     _navigationService.pushNamedAndRemoveUntil(Routes.homeView);
+    notifyListeners();
   }
 
   File imageFile;
@@ -147,6 +144,9 @@ class ProfileViewModel extends BaseViewModel {
 
   Future imageUpload() async {
     await _authService.uploadImage(image: imageFile);
+    await updateUser();
+    await _storageService.getUser(user.id);
+
     notifyListeners();
   }
 
@@ -158,8 +158,10 @@ class ProfileViewModel extends BaseViewModel {
         phoneNumber: numberController.text,
         email: user.email,
         uid: user.id,
-        image: _authService.imageUrl != null ? _authService.imageUrl : "",
+        image: user.image != null ? user.image : "",
         adress: adressController.text);
+    await _storageService.getUser(user.id);
+
     notifyListeners();
   }
 }

@@ -24,4 +24,5 @@ class AppColors {
   static const Color shoeColor = Color(0xff4ff2af);
   static const Color pantColor = Color(0xff74acf7);
   static const Color tieColor = Color(0xfffc6c8d);
+  static const Color buttonColor = Color(0xff746bc9);
 }
